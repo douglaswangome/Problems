@@ -1,15 +1,13 @@
-function climbStairs(n: number): number {
-	let n1: number = 0;
-	let n2: number = 1;
-	let nextTerm: number;
-
-	for (let i: number = 1; i <= n; i++) {
-		nextTerm = n1 + n2;
-		n1 = n2;
-		n2 = nextTerm;
+function climbStairs(n: number, memo: { [key: number]: number } = {}): number {
+	// After learning dynamic programming, I decided to try it out here
+	if (memo.hasOwnProperty(n)) {
+		return memo[n];
 	}
-
-	return n2;
+	if (n <= 3) {
+		return n;
+	}
+	memo[n] = climbStairs(n - 1, memo) + climbStairs(n - 2, memo);
+	return memo[n];
 }
 
-console.log(climbStairs(5));
+console.log(climbStairs(50));
